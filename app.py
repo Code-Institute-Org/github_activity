@@ -27,7 +27,25 @@ def count_commits(user, days):
 
     # passing repos end point to repos variable
     repos = requests.get(repo_url, headers=headers).json()
-    # looping through repos variable to get the name of each repo repositry
+
+    # checking for valid username
+    if 'message' in repos:
+        if repos['message'] == 'Not Found':
+            print("incorrect value supplied for username")
+            return commit_count
+
+    # checking days param is an int
+    check_date_param = isinstance(days, int)
+    if not check_date_param:
+        print("Please ensure your days value is an integer")
+        return commit_count
+
+    # checking if a value greater than 0 is passed in for days
+    if days < 1 :
+        print("Please ensure your days value is greater than 0")
+        return commit_count
+
+    # looping through repos variable to get the name of each repo
     for repo in repos:
         name = repo['name']
         # creating commits end point
