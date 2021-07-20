@@ -81,5 +81,3 @@ def count_commits(user, days):
 
     return commit_count
 
-print("There are ", count_commits('alimgee', 350),
-      "in this repo for the time period specified")
